@@ -1,0 +1,28 @@
+<div class="p-4">
+    <h2 class="text-2xl font-bold mb-4">Tus tableros</h2>
+  
+    <div class="mb-4 flex gap-2">
+      <input
+        type="text"
+        class="border p-2 rounded w-full"
+        placeholder="Nombre del nuevo tablero"
+        [(ngModel)]="newBoardName"
+      />
+      <button (click)="createBoard()" class="bg-[#d1ac00] text-white px-4 py-2 rounded">
+        Crear
+      </button>
+    </div>
+  
+    <div *ngIf="boards.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div
+        *ngFor="let board of boards"
+        class="p-4 bg-[#1a7459] rounded shadow hover:scale-105 transition-transform duration-200 cursor-pointer"
+        (click)="goToBoard(board)"
+      >
+        {{ board.titulo }}
+      </div>
+    </div>
+  
+    <p *ngIf="boards.length === 0" class="text-gray-600">No tienes tableros aún.</p>
+  </div>
+  

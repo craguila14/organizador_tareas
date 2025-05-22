@@ -1,0 +1,71 @@
+<div *ngIf="board">
+  <div class="relative bg-[#faf4d3] min-h-screen p-6">
+    <!-- Board titulo -->
+    <div class="mb-6">
+      <div *ngIf="!editandoTitulo; else editMode">
+        <h2
+          class="text-2xl font-bold cursor-pointer inline-block mb-2"
+          (click)="editandoTitulo = true"
+        >
+          {{ board.titulo }}
+        </h2>
+      </div>
+      <ng-template #editMode>
+        <input
+          [(ngModel)]="nuevoTituloTablero"
+          (blur)="guardarTituloTablero()"
+          (keydown.enter)="guardarTituloTablero()"
+          class="text-2xl font-bold border border-gray-300 p-1 rounded w-full max-w-md"
+          autofocus
+        />
+      </ng-template>
+    </div>
+
+    <!-- Listas-->
+    <div
+      class="flex gap-4 overflow-visible min-h-[200px]"
+      cdkDropList
+      [cdkDropListData]="board.listas"
+      (cdkDropListDropped)="reordenarListas($event)"
+    >
+      <div *ngFor="let lista of board.listas; let i = index" cdkDrag class="cursor-move">
+        <app-list
+          [list]="lista"
+          [connectedDropListsIds]="connectedDropListsIds"
+          (listaEliminada)="quitarLista($event)"
+        ></app-list>
+      </div>
+
+      <div class="w-64 bg-gray-100 p-4 rounded shadow shrink-0 self-start">
+        <input
+          [(ngModel)]="nuevaListaTitulo"
+          type="text"
+          placeholder="Nombre de la lista"
+          class="w-full border p-2 mb-2 text-sm rounded"
+        />
+        <button
+          (click)="crearLista()"
+          class="bg-green-600 text-white w-full py-1 rounded text-sm hover:bg-green-700"
+        >
+          Agregar lista
+        </button>
+      </div>
+    </div>
+
+    <!-- Botones -->
+    <div class="fixed bottom-6 right-6 flex items-end p-2 gap-2">
+      <button
+        (click)="editandoTitulo = true"
+        class="bg-yellow-600 text-white px-4 py-2 rounded shadow hover:bg-yellow-700"
+      >
+        Editar tablero
+      </button>
+      <button
+        (click)="eliminarTablero()"
+        class="bg-red-600 text-white px-4 py-2 rounded shadow hover:bg-red-700"
+      >
+        Eliminar tablero
+      </button>
+    </div>
+  </div>
+</div>

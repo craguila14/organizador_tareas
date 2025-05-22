@@ -14,13 +14,13 @@ const getCardsByList = async (req, res) => {
 const createCard = async (req, res) => {
   try {
     const { listId } = req.params;
-    const { titulo, descripcion, posicion } = req.body;
+    const { titulo, posicion, estado } = req.body;
 
     if (!titulo) {
       return res.status(400).json({ message: 'El título es obligatorio' });
     }
 
-    const newCard = await cardsModel.createCard(listId, titulo, descripcion || '', posicion);
+    const newCard = await cardsModel.createCard(listId, titulo, posicion, estado);
     res.status(201).json(newCard);
   } catch (error) {
     console.error('Error al crear la tarjeta:', error);
@@ -31,9 +31,9 @@ const createCard = async (req, res) => {
 const updateCard = async (req, res) => {
   try {
     const { id } = req.params;
-    const { titulo, descripcion, posicion, listId } = req.body;
+    const { titulo, posicion, listId, estado } = req.body;
 
-    const updatedCard = await cardsModel.updateCard(id, titulo, descripcion, posicion, listId);
+    const updatedCard = await cardsModel.updateCard(id, titulo, Number(posicion), listId, estado);
     if (!updatedCard) {
       return res.status(404).json({ message: 'Tarjeta no encontrada' });
     }

@@ -1,0 +1,97 @@
+<div class="bg-gray-100 rounded p-4 w-64 shadow-md">
+  <!-- Titulo lista -->
+  <div *ngIf="!editandoLista; else editMode">
+    <div class="flex justify-between items-center mb-2">
+      <h3 class="font-semibold text-lg cursor-pointer" (click)="iniciarEdicionLista()">
+        {{ list.titulo }}
+      </h3>
+      <div class="flex gap-2">
+        <button (click)="iniciarEdicionLista()" class="text-sm text-blue-600 cursor-pointer">✏️</button>
+        <button (click)="eliminarLista()" class="text-sm text-red-600 cursor-pointer">🗑️</button>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #editMode>
+    <input
+      [(ngModel)]="nuevoTituloLista"
+      (blur)="guardarTituloLista()"
+      (keydown.enter)="guardarTituloLista()"
+      class="text-2xl font-bold border border-gray-300 p-1 rounded w-full max-w-md"
+      autofocus
+    />
+  </ng-template>
+
+  <!-- Contenedor de tarjetas-->
+  <div
+    cdkDropList
+    [id]="list.id"
+    [cdkDropListData]="cards"
+    [cdkDropListConnectedTo]="connectedDropListsIds"
+    (cdkDropListDropped)="dropCard($event)"
+    class="space-y-2 min-h-[40px] mb-4"
+  >
+    <!-- Tarjetas -->
+    <div
+      *ngFor="let card of cards"
+      cdkDrag
+      class="bg-white rounded shadow group relative"
+    >
+      <div
+        class="relative group p-3 bg-white rounded shadow hover:shadow-md transition-all border-l-4"
+        [ngClass]="{
+          'border-green-500 bg-green-50 text-gray-500 line-through': card.estado === 'completa',
+          'border-gray-300': card.estado === 'incompleta'
+        }"
+      >
+        <!-- Círculo check -->
+        <div
+          class="absolute top-2 left-2 w-5 h-5 rounded-full border-2 border-gray-400 flex items-center justify-center text-xs
+                 bg-white text-green-600 cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity"
+          (click)="toggleEstado(card)"
+        >
+          <span *ngIf="card.estado === 'completa'">✔</span>
+        </div>
+
+        <!-- Contenido de la tarjeta -->
+        <div class="ml-8 break-words whitespace-pre-wrap">
+          <div *ngIf="editandoCardId !== card.id; else editarCardInput">
+            {{ card.titulo }}
+          </div>
+          <ng-template #editarCardInput>
+            <input
+              [(ngModel)]="titulosEditados[card.id]"
+              (blur)="guardarTituloCard(card)"
+              (keydown.enter)="guardarTituloCard(card)"
+              (keydown.esc)="cancelarEdicionCard()"
+              class="border p-1 rounded text-sm w-full"
+              autofocus
+            />
+          </ng-template>
+        </div>
+
+        <!-- Botones -->
+        <div
+          class="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity"
+        >
+          <button (click)="iniciarEdicionCard(card)" class="text-blue-600 cursor-pointer text-sm">✏</button>
+          <button (click)="eliminarCard(card)" class="text-red-600 cursor-pointer text-sm">🗑</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nueva tarjeta -->
+  <input
+    [(ngModel)]="nuevaCard"
+    type="text"
+    placeholder="Nueva tarjeta"
+    class="w-full p-1 text-sm border rounded mb-2"
+  />
+  <button
+    (click)="addCard()"
+    class="bg-blue-500 text-white px-2 py-1 rounded text-sm w-full"
+  >
+    Agregar tarjeta
+  </button>
+</div>

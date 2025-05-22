@@ -27,13 +27,13 @@ const getBoardById = async (req, res) => {
 const createBoard = async (req, res) => {
   try {
     const userId = req.user.id;
-    const { titulo, descripcion } = req.body;
+    const { titulo } = req.body;
 
     if (!titulo) {
       return res.status(400).json({ message: 'El título es obligatorio' });
     }
 
-    const newBoard = await boardsModel.createBoard(userId, titulo, descripcion);
+    const newBoard = await boardsModel.createBoard(userId, titulo);
     res.status(201).json(newBoard);
   } catch (error) {
     console.error('Error al crear el tablero:', error);
@@ -43,8 +43,8 @@ const createBoard = async (req, res) => {
 
 const updateBoard = async (req, res) => {
   try {
-    const { titulo, descripcion } = req.body;
-    const updatedBoard = await boardsModel.updateBoard(req.params.id, titulo, descripcion);
+    const { titulo } = req.body;
+    const updatedBoard = await boardsModel.updateBoard(req.params.id, titulo);
 
     if (!updatedBoard) {
       return res.status(404).json({ message: 'Tablero no encontrado' });

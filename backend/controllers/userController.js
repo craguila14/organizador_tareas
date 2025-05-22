@@ -43,6 +43,7 @@ const loginUser = async (req, res) => {
 };
 
 const getUser = async (req, res) => {
+    console.log('Authorization header recibida en el backend:', req.headers.authorization);
     const token = req.headers.authorization?.split(' ')[1];
 
     if (!token) {

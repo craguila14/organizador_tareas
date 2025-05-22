@@ -12,25 +12,25 @@ const getCardsByListId = async (listId) => {
 };
 
 
-const createCard = async (listId, titulo, descripcion, posicion) => {
+const createCard = async (list_id, titulo, posicion, estado) => {
   const query = `
-    INSERT INTO cards (list_id, titulo, descripcion, posicion)
+    INSERT INTO cards (list_id, titulo, posicion, estado)
     VALUES ($1, $2, $3, $4)
     RETURNING *;
   `;
-  const result = await pool.query(query, [listId, titulo, descripcion, posicion]);
+  const result = await pool.query(query, [list_id, titulo, posicion, estado]);
   return result.rows[0];
 };
 
 
-const updateCard = async (id, titulo, descripcion, posicion, listId) => {
+const updateCard = async (id, titulo, posicion, list_id, estado) => {
   const query = `
     UPDATE cards
-    SET titulo = $1, descripcion = $2, posicion = $3, list_id = $4
+    SET titulo = $1, posicion = $2, list_id = $3, estado = $4
     WHERE id = $5
     RETURNING *;
   `;
-  const result = await pool.query(query, [titulo, descripcion, posicion, listId, id]);
+  const result = await pool.query(query, [titulo, Number(posicion), list_id, estado, id]); 
   return result.rows[0];
 };
 

@@ -19,24 +19,24 @@ const getBoardById = async (id) => {
   return result.rows[0];
 };
 
-const createBoard = async (userId, titulo, descripcion) => {
+const createBoard = async (userId, titulo) => {
   const query = `
-    INSERT INTO boards (user_id, titulo, descripcion)
-    VALUES ($1, $2, $3)
+    INSERT INTO boards (user_id, titulo)
+    VALUES ($1, $2)
     RETURNING *;
   `;
-  const result = await pool.query(query, [userId, titulo, descripcion]);
+  const result = await pool.query(query, [userId, titulo]);
   return result.rows[0];
 };
 
-const updateBoard = async (id, titulo, descripcion) => {
+const updateBoard = async (id, titulo) => {
   const query = `
     UPDATE boards
-    SET titulo = $1, descripcion = $2
-    WHERE id = $3
+    SET titulo = $1
+    WHERE id = $2
     RETURNING *;
   `;
-  const result = await pool.query(query, [titulo, descripcion, id]);
+  const result = await pool.query(query, [titulo, id]);
   return result.rows[0];
 };
 
