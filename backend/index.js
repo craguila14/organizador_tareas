@@ -18,7 +18,8 @@ const client = new Client({
   database: process.env.DB_DATABASE,
   ssl: {
     rejectUnauthorized: true
-  }
+  },
+  sslmode: 'require',
 });
 
 
