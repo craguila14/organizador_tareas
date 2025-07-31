@@ -19,7 +19,7 @@ const client = new Client({
   port: process.env.DB_PORT,
   database: process.env.DB_DATABASE,
   ssl: {
-    rejectUnauthorized: false
+    rejectUnauthorized: true
   }
 });
 
