@@ -17,13 +17,24 @@ const client = new Client({
   port: Number(process.env.DB_PORT),
   database: process.env.DB_DATABASE,
   ssl: {
-    rejectUnauthorized: false
+    rejectUnauthorized: true
   }
 });
 
 
 
 const PORT = process.env.PORT || 3000;
+
+async function connectToDatabase() {
+  try {
+    await client.connect();
+    console.log('✅ Conectado exitosamente a la base de datos');
+  } catch (error) {
+    console.error('❌ Error al conectar a la base de datos:', error.message);
+  }
+}
+
+connectToDatabase();
 
 app.use(cors());
 app.use(express.json());
