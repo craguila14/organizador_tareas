@@ -15,7 +15,6 @@ const client = new Client({
 });
 
 
-
 const PORT = process.env.PORT || 3000;
 
 async function connectToDatabase() {
