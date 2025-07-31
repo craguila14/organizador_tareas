@@ -24,7 +24,8 @@ export const routes: Routes = [
         {
           path: ':id',
           component: BoardViewComponent,
-          canActivate: [authGuard]
+          canActivate: [authGuard],
+          data: { renderMode: 'no-perender' }
         }
       ]
     },
