@@ -15,7 +15,6 @@ CREATE TABLE boards (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID REFERENCES users(id) ON DELETE CASCADE,
   titulo VARCHAR(150) NOT NULL,
-  descripcion TEXT,
   creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -33,7 +32,7 @@ CREATE TABLE cards (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   list_id UUID REFERENCES lists(id) ON DELETE CASCADE,
   titulo VARCHAR(150) NOT NULL,
-  descripcion TEXT,
   posicion INTEGER NOT NULL,
-  creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  estado VARCHAR (20)
 );
