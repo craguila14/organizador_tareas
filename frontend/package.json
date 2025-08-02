@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:frontend": "node dist/frontend/server/server.mjs",
-    "build:ssr": "ng build && ng run organizador_de_tareas:server"
+    "build:ssr": "ng build && ng run frontend:server"
   },
   "private": true,
   "dependencies": {
