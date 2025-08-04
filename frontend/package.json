@@ -9,7 +9,7 @@
     "test": "ng test",
     "serve:ssr:frontend": "node dist/frontend/server/server.mjs",
      "build:ssr": "ng build && ng run frontend:server",
-      "ssr": "node dist/frontend/server/main.js"
+      "ssr": "node dist/frontend/server/server.mjs"
   },
   "private": true,
   "dependencies": {
