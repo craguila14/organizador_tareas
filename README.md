@@ -31,7 +31,7 @@ Permite a los usuarios:
 1. Clona el repositorio:  
    ```bash
    git clone https://github.com/craguila14/organizador_tareas.git
-   cd mamma-mia
+   cd organizador_tareas
 2. Instala las dependencias del frontend
    ```bash
    cd frontend
