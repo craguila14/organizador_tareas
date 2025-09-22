@@ -14,7 +14,7 @@ Permite a los usuarios:
 ---
 
 ## 📸 Vista previa
-![Trello clone](organizador_tareas/trello-clone.png)
+![Trello clone](trello-clone.png)
 
 ---
 
